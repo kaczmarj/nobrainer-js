@@ -12,7 +12,8 @@ function minMaxNorm<T extends tf.Tensor>(x: T): T {
 }
 
 // Normalize data in a `tf.Tensor` to zero mean and unit standard deviation.
-// https://github.com/tensorflow/tfjs-models/blob/069c90c563d12a582b2c4228a3b30722b0811f23/speech-commands/utils/util.ts#L75-L85
+// https://github.com/tensorflow/tfjs-models/blob/069c90c563d12a582b2c4228a3b30722b0811f23/speech-commands/
+//   utils/util.ts#L75-L85
 function zscore<T extends tf.Tensor>(x: T): T {
   return tf.tidy(() => {
     const mean = tf.mean(x);
@@ -24,15 +25,14 @@ function zscore<T extends tf.Tensor>(x: T): T {
 // Predict on images using a trained tfjs model.
 export function predict(
   modelPath: string,
-  // pixels: HTMLImageElement,
   pixels: ImageData,
   nChannels: number,
   normalizer?: 'minmax' | 'zscore',
-  canvas?: HTMLCanvasElement): void {  // TODO: return array of predictions.
+  canvas?: HTMLCanvasElement): Promise<Uint8ClampedArray | void> {
 
   const model: Promise<tf.Model> = tf.loadModel(modelPath);
 
-  model.then((m) => {
+  return model.then((m) => {
 
     // Get images.
     // Rank 3: (x, y, channels).
