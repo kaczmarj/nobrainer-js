@@ -6,20 +6,20 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import UploadImage from "./components/UploadImage.vue";
-import PredictImage from "./components/PredictImage.vue";
-import { store } from "./store/index";
+import Vue from 'vue';
+import UploadImage from './components/UploadImage.vue';
+import PredictImage from './components/PredictImage.vue';
+import { store } from './store/index';
 
 export default Vue.extend({
-  name: "app",
+  name: 'app',
   // This syntax allows us to reference the shared store object as `this.$store` in other
   // components without having to explicitly import the store object.
   store,
   components: {
     UploadImage,
-    PredictImage
-  }
+    PredictImage,
+  },
 });
 </script>
 

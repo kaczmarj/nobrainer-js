@@ -1,12 +1,12 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 
-interface featuresModuleState {
-  dataURL: string,
-  imageData: ImageData,
+interface FeaturesModuleState {
+  dataURL: string;
+  imageData: ImageData;
 }
 
 const featuresModule = {
@@ -16,7 +16,7 @@ const featuresModule = {
 
   mutations: {
     // Set information about the image from an input change event.
-    setImageInfo(state: featuresModuleState, event: Event) {
+    setImageInfo(state: FeaturesModuleState, event: Event) {
 
       if (event.target !== null) {
 
@@ -31,7 +31,7 @@ const featuresModule = {
               state.dataURL = e.target.result;
             } else {
               // TODO(kaczmarj): improve error handling.
-              console.log("file reader got unexpected null value");
+              console.log('file reader got unexpected null value');
             }
           };
           reader.readAsDataURL(file);
@@ -60,28 +60,28 @@ const featuresModule = {
     //   return typedArray
     // },
 
-    dataURLAsImageData(state: featuresModuleState): ImageData | undefined {
+    dataURLAsImageData(state: FeaturesModuleState): ImageData | undefined {
       // TODO(kaczmarj): Improve error checking. For example, this will fail if src is empty.
       // https://stackoverflow.com/a/10755011/5666087
 
-      if (state.dataURL !== "") {
-        let img = new Image()
-        img.src = state.dataURL
+      if (state.dataURL !== '') {
+        const img = new Image();
+        img.src = state.dataURL;
 
-        let canvas = document.createElement('canvas');
-        canvas.width = img.width
-        canvas.height = img.height
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
 
-        let ctx = canvas.getContext("2d") as CanvasRenderingContext2D
-        ctx.drawImage(img, 0, 0)
+        const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+        ctx.drawImage(img, 0, 0);
 
-        return ctx.getImageData(0, 0, img.width, img.height)
+        return ctx.getImageData(0, 0, img.width, img.height);
       } else {
-        return undefined
+        return undefined;
       }
-    }
+    },
   },
-}
+};
 
 
 // interface modelModuleStateInterface {
@@ -91,17 +91,17 @@ const featuresModule = {
 const modelModule = {
   state: {
     URL: String,
-    predictedDataURL: "",
+    predictedDataURL: '',
   },
 
   mutations: {
   },
-}
+};
 
 
 export const store = new Vuex.Store({
   modules: {
     features: featuresModule,
     model: modelModule,
-  }
-})
+  },
+});

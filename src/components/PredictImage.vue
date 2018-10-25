@@ -23,16 +23,16 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { predict } from "../assets/predict";
+import Vue from 'vue';
+import { predict } from '../assets/predict';
 
 export default Vue.extend({
-  name: "PredictImage",
+  name: 'PredictImage',
   props: {},
   data() {
     return {
-      modelURL: "",
-      predicted: false
+      modelURL: '',
+      predicted: false,
     };
   },
   methods: {
@@ -41,18 +41,18 @@ export default Vue.extend({
         this.modelURL,
         this.$store.getters.dataURLAsImageData,
         1,
-        "minmax",
-        this.$refs.predictionsCanvas as HTMLCanvasElement
+        'minmax',
+        this.$refs.predictionsCanvas as HTMLCanvasElement,
       );
       this.predicted = true;
     },
     downloadPredictionsCanvas(): void {
-      let canvas = this.$refs.predictionsCanvas as HTMLCanvasElement;
-      let url = canvas.toDataURL("image/png");
-      let anchor = this.$refs.predictionsDownloadLink as HTMLAnchorElement;
+      const canvas = this.$refs.predictionsCanvas as HTMLCanvasElement;
+      const url = canvas.toDataURL('image/png');
+      const anchor = this.$refs.predictionsDownloadLink as HTMLAnchorElement;
       anchor.href = url;
-    }
-  }
+    },
+  },
 });
 </script>
 
