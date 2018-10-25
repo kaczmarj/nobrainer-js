@@ -11,17 +11,16 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { predict } from "../assets/predict";
+import Vue from 'vue';
 
 export default Vue.extend({
-  name: "UploadImage",
+  name: 'UploadImage',
   props: {},
   data() {
     return {};
   },
   computed: {},
-  methods: {}
+  methods: {},
 });
 </script>
 
