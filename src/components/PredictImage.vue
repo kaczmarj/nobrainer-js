@@ -1,22 +1,20 @@
 <template>
   <div v-if="$store.state.features.dataURL.length > 0">
       <div>
-
+        <h3>Evaluate</h3>
         <form @submit.prevent="predictImage" class="modelForm">
           <label>
-            Model:
-            <input type="url" v-model="modelURL" class="modelURL" />
+            <b-select v-model="modelURL" :options="models" />
           </label>
-          <button v-if="!predicted" type="submit">Predict</button>
+          <b-button v-if="!predicted" type="submit">Run</b-button>
         </form>
 
-          <!-- Model URL: <input type="url" v-model="modelURL" placeholder="enter a URL" @submit="predictImage"> -->
       </div>
 
       <canvas ref="predictionsCanvas" id="predictions"></canvas>
 
       <div v-if="predicted">
-        <a href="#" ref="predictionsDownloadLink" download="prediction.png" @click="downloadPredictionsCanvas">Download</a>
+        <b-link href="#" ref="predictionsDownloadLink" download="prediction.png" @click="downloadPredictionsCanvas">Download</b-link>
       </div>
 
   </div>
@@ -33,6 +31,14 @@ export default Vue.extend({
     return {
       modelURL: '',
       predicted: false,
+      models: [
+        { value: '', text: 'please select an operation' },
+        {
+          value:
+            'https://kaczmarj.github.io/nobrainer-js/models/brain-extraction/2d/unet-minmax/model.json',
+          text: 'brain extraction',
+        },
+      ],
     };
   },
   methods: {
