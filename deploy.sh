@@ -6,6 +6,9 @@ set -e
 # build
 npm run build
 
+# copy models into build output directory
+cp -r models dist/
+
 # navigate into the build output directory
 cd dist
 
