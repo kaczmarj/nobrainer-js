@@ -3,7 +3,6 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-
 interface FeaturesModuleState {
   dataURL: string;
   imageData: ImageData;
@@ -17,18 +16,17 @@ const featuresModule = {
   mutations: {
     // Set information about the image from an input change event.
     setImageInfo(state: FeaturesModuleState, event: Event) {
-
       if (event.target !== null) {
-
         const input = event.target as HTMLInputElement;
         const files = input.files as FileList;
         if (files !== null && files[0]) {
           const file: File = files[0];
 
           const reader: FileReader = new FileReader();
-          reader.onload = (e: FileReaderProgressEvent) => {
+          reader.onload = (e: ProgressEvent) => {
             if (e.target !== null) {
-              state.dataURL = e.target.result;
+              // TODO(kaczmarj): fix this with ProgressEvent.
+              state.dataURL = reader.result as string;
             } else {
               // TODO(kaczmarj): improve error handling.
               console.log('file reader got unexpected null value');
@@ -83,7 +81,6 @@ const featuresModule = {
   },
 };
 
-
 // interface modelModuleStateInterface {
 //   URL: string,
 // }
@@ -94,10 +91,8 @@ const modelModule = {
     predictedDataURL: '',
   },
 
-  mutations: {
-  },
+  mutations: {},
 };
-
 
 export const store = new Vuex.Store({
   modules: {
